@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Journal | Game Development, Math & Physics</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f7;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-weight: 600;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            letter-spacing: -0.3px;
+            margin-top: 1.5em;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #1d1d1f;
+        }
+
+        p {
+            margin-bottom: 1.2em;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        a:hover {
+            color: #004499;
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .site-title {
+            font-size: 2.8rem;
+            margin-bottom: 0.2em;
+            background: linear-gradient(90deg, #2a77e7, #8a3de7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .site-description {
+            font-size: 1.2rem;
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            font-size: 1.1rem;
+            color: #444;
+            position: relative;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0066cc;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        /* Main content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            padding: 20px 0;
+        }
+
+        /* Blog section */
+        .blog-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .blog-post {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+
+        .blog-post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .post-meta .tag {
+            background: #f0f0f0;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .post-title {
+            margin-bottom: 10px;
+        }
+
+        .post-excerpt {
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        /* Featured image */
+        .featured-image {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-post:hover .featured-image img {
+            transform: scale(1.02);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            align-self: start;
+        }
+
+        .about-me {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin: 0 auto 20px;
+            display: block;
+            object-fit: cover;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f5f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            background: #e5e5e7;
+            transform: translateY(-2px);
+        }
+
+        .categories {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .categories ul {
+            list-style: none;
+        }
+
+        .categories li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .categories li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .categories li a {
+            display: flex;
+            justify-content: space-between;
+            color: #333;
+        }
+
+        .categories li a:hover {
+            color: #0066cc;
+        }
+
+        .categories .count {
+            background: #f0f0f0;
+            border-radius: 100px;
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Projects showcase */
+        .projects-showcase {
+            margin: 60px 0;
+        }
+
+        .projects-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-image {
+            height: 180px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .project-tag {
+            background: #f0f0f0;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 1;
+            }
+            
+            .blog-section {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 40px 0 20px;
+            }
+            
+            .site-title {
+                font-size: 2.2rem;
+            }
+            
+            .blog-section, .about-me, .categories {
+                padding: 20px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                margin: 0 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="site-title">Dev Journal</h1>
+        <p class="site-description">Exploring Game Development, Mathematics, Physics, and Gaming</p>
+        <nav>
+            <a href="#blog">Blog</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <section id="blog" class="blog-section">
+            <h2>Latest Articles</h2>
+            
+            <!-- Blog Post 1 -->
+            <article class="blog-post">
+                <div class="featured-image">
+                    <img src="/api/placeholder/800/400" alt="Unity 2D Physics Simulation">
+                </div>
+                <div class="post-meta">
+                    March 28, 2025 <span class="tag">Game Dev</span> <span class="tag">Physics</span>
+                </div>
+                <h3 class="post-title">Creating Realistic 2D Physics in Unity</h3>
+                <p class="post-excerpt">I've been working on implementing realistic physics for my 2D platformer. Here's how I used Unity's built-in physics engine to create more satisfying movement and interactions.</p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
+            
+            <!-- Blog Post 2 -->
+            <article class="blog-post">
+                <div class="featured-image">
+                    <img src="/api/placeholder/800/400" alt="Procedural Generation Algorithm">
+                </div>
+                <div class="post-meta">
+                    March 15, 2025 <span class="tag">Game Dev</span> <span class="tag">Algorithms</span>
+                </div>
+                <h3 class="post-title">Procedural Level Generation: Math Behind the Magic</h3>
+                <p class="post-excerpt">Exploring the mathematics that powers procedural generation in games like Minecraft and No Man's Sky. I've implemented a basic version and the results are fascinating.</p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
+            
+            <!-- Blog Post 3 -->
+            <article class="blog-post">
+                <div class="featured-image">
+                    <img src="/api/placeholder/800/400" alt="Shader Programming">
+                </div>
+                <div class="post-meta">
+                    March 3, 2025 <span class="tag">Graphics</span> <span class="tag">Coding</span>
+                </div>
+                <h3 class="post-title">My First Steps into Shader Programming</h3>
+                <p class="post-excerpt">I've always been fascinated by the visual effects in games. This week I dove into shader programming and created some simple but cool effects for my game project.</p>
+                <a href="#" class="read-more">Read More →</a>
+            </article>
+        </section>
+
+        <aside class="sidebar">
+            <!-- About Me Section -->
+            <div id="about" class="about-me">
+                <img src="/api/placeholder/200/200" alt="Profile Picture" class="profile-pic">
+                <h3>Hey, I'm [Your Brother's Name]</h3>
+                <p>I'm a 15-year-old aspiring game developer with a passion for mathematics, physics, and all things gaming. This is where I document my journey, share what I'm learning, and showcase my projects.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.477 2 2 6.477 2 12C2 16.418 4.865 20.167 8.84 21.494C9.34 21.588 9.5 21.275 9.5 21C9.5 20.745 9.492 20.035 9.489 19.19C6.729 19.795 6.155 17.809 6.155 17.809C5.715 16.626 5.066 16.313 5.066 16.313C4.209 15.657 5.132 15.67 5.132 15.67C6.083 15.741 6.598 16.745 6.598 16.745C7.445 18.264 8.887 17.855 9.52 17.593C9.613 16.925 9.878 16.475 10.168 16.218C7.958 15.959 5.632 15.102 5.632 11.28C5.632 10.131 6.013 9.164 6.618 8.432C6.514 8.169 6.178 7.144 6.714 5.737C6.714 5.737 7.505 5.459 9.476 6.784C10.295 6.55 11.15 6.433 12 6.429C12.85 6.433 13.705 6.55 14.525 6.784C16.495 5.459 17.285 5.737 17.285 5.737C17.822 7.144 17.486 8.169 17.382 8.432C17.988 9.164 18.367 10.131 18.367 11.28C18.367 15.113 16.038 15.956 13.819 16.208C14.178 16.526 14.501 17.154 14.501 18.122C14.501 19.499 14.49 20.655 14.49 21C14.49 21.277 14.647 21.594 15.156 21.492C19.127 20.162 22 16.417 22 12C22 6.477 17.523 2 12 2Z" fill="#333333"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 4.01C21.042 4.455 20.021 4.762 18.95 4.905C20.045 4.242 20.878 3.171 21.274 1.887C20.248 2.529 19.115 2.984 17.902 3.221C16.931 2.164 15.554 1.5 14.029 1.5C11.093 1.5 8.718 3.876 8.718 6.811C8.718 7.226 8.763 7.635 8.853 8.027C4.391 7.815 0.413 5.701 -2.28882e-05 2.848C-0.044 3.644 -0.006 4.449 0.212 5.219C0.662 6.835 1.867 8.113 3.44 8.784C2.58 8.758 1.737 8.546 0.981 8.164C0.981 10.802 2.735 13.023 5.132 13.5C4.336 13.726 3.502 13.76 2.688 13.598C3.319 15.731 5.295 17.28 7.622 17.32C5.789 18.742 3.48 19.568 1.09 19.568C0.728 19.568 0.366 19.548 0 19.509C2.356 20.993 5.156 21.892 8.176 21.892C17.948 21.892 23.317 13.767 23.317 6.671C23.317 6.44 23.313 6.213 23.302 5.986C24.332 5.228 25.214 4.282 25.893 3.209C24.958 3.623 23.963 3.9 22.924 4.01H22Z" fill="#333333"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="YouTube">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.498 6.186C23.2393 5.31097 22.565 4.63507 21.694 4.373C19.9433 3.83333 12.3333 3.83333 12.3333 3.83333C12.3333 3.83333 4.72333 3.83333 2.97267 4.373C2.10165 4.63507 1.42737 5.31097 1.16867 6.186C0.631775 7.94333 0.631775 11.6667 0.631775 11.6667C0.631775 11.6667 0.631775 15.39 1.16867 17.1473C1.42737 18.0223 2.10165 18.6983 2.97267 18.9603C4.72333 19.5 12.3333 19.5 12.3333 19.5C12.3333 19.5 19.9433 19.5 21.694 18.9603C22.565 18.6983 23.2393 18.0223 23.498 17.1473C24.0349 15.39 24.0349 11.6667 24.0349 11.6667C24.0349 11.6667 24.0349 7.94333 23.498 6.186ZM9.96667 15.0217V8.31167L16.0623 11.6667L9.96667 15.0217Z" fill="#333333"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Categories -->
+            <div class="categories">
+                <h3>Topics</h3>
+                <ul>
+                    <li><a href="#">Game Development <span class="count">8</span></a></li>
+                    <li><a href="#">Mathematics <span class="count">5</span></a></li>
+                    <li><a href="#">Physics Simulations <span class="count">3</span></a></li>
+                    <li><a href="#">Programming <span class="count">12</span></a></li>
+                    <li><a href="#">Gaming <span class="count">4</span></a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Projects Showcase -->
+    <section id="projects" class="projects-showcase">
+        <h2 class="projects-heading">My Projects</h2>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="2D Platformer Game">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Gravity Shift</h3>
+                    <p>A 2D platformer with gravity-shifting mechanics. Navigate through challenging levels by changing the direction of gravity.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Unity</span>
+                        <span class="project-tag">C#</span>
+                        <span class="project-tag">2D</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="Physics Simulation">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Orbital Physics</h3>
+                    <p>A simulation of orbital mechanics based on actual physics equations. Create your own solar system and watch how celestial bodies interact.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">HTML5 Canvas</span>
+                        <span class="project-tag">Physics</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="Procedural Generation">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Terrain Generator</h3>
+                    <p>An experimental terrain generator using Perlin noise to create realistic landscapes with mountains, valleys, and water bodies.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">OpenGL</span>
+                        <span class="project-tag">Procedural</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>© 2025 [Your Brother's Name] • Designed by [Your Name]</p>
+        <p>Contact me at <a href="mailto:example@email.com">example@email.com</a></p>
+    </footer>
+</body>
+</html>
