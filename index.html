@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Journal | Game Development, Math & Physics</title>
+    <title>Nouman Shahir | Game Development, Math & Physics</title>
     <style>
         /* Reset and base styles */
         * {
@@ -168,22 +167,14 @@
             font-weight: 500;
         }
 
-        /* Featured image */
-        .featured-image {
+        /* Featured emoji */
+        .featured-emoji {
+            font-size: 4rem;
+            text-align: center;
+            background: #f8f8fa;
             border-radius: 8px;
-            overflow: hidden;
+            padding: 20px 0;
             margin-bottom: 20px;
-        }
-
-        .featured-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .blog-post:hover .featured-image img {
-            transform: scale(1.02);
         }
 
         /* Sidebar */
@@ -199,14 +190,10 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
-        .profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #eee;
-            margin: 0 auto 20px;
-            display: block;
-            object-fit: cover;
+        .profile-emoji {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .social-links {
@@ -302,21 +289,13 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .project-image {
+        .project-emoji {
             height: 180px;
-            background-color: #eee;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
+            background-color: #f8f8fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
         }
 
         .project-info {
@@ -392,7 +371,7 @@
 </head>
 <body>
     <header>
-        <h1 class="site-title">Dev Journal</h1>
+        <h1 class="site-title">Nouman Shahir</h1>
         <p class="site-description">Exploring Game Development, Mathematics, Physics, and Gaming</p>
         <nav>
             <a href="#blog">Blog</a>
@@ -408,8 +387,8 @@
             
             <!-- Blog Post 1 -->
             <article class="blog-post">
-                <div class="featured-image">
-                    <img src="/api/placeholder/800/400" alt="Unity 2D Physics Simulation">
+                <div class="featured-emoji">
+                    🎮
                 </div>
                 <div class="post-meta">
                     March 28, 2025 <span class="tag">Game Dev</span> <span class="tag">Physics</span>
@@ -421,8 +400,8 @@
             
             <!-- Blog Post 2 -->
             <article class="blog-post">
-                <div class="featured-image">
-                    <img src="/api/placeholder/800/400" alt="Procedural Generation Algorithm">
+                <div class="featured-emoji">
+                    🧠
                 </div>
                 <div class="post-meta">
                     March 15, 2025 <span class="tag">Game Dev</span> <span class="tag">Algorithms</span>
@@ -434,8 +413,8 @@
             
             <!-- Blog Post 3 -->
             <article class="blog-post">
-                <div class="featured-image">
-                    <img src="/api/placeholder/800/400" alt="Shader Programming">
+                <div class="featured-emoji">
+                    ✨
                 </div>
                 <div class="post-meta">
                     March 3, 2025 <span class="tag">Graphics</span> <span class="tag">Coding</span>
@@ -449,8 +428,8 @@
         <aside class="sidebar">
             <!-- About Me Section -->
             <div id="about" class="about-me">
-                <img src="/api/placeholder/200/200" alt="Profile Picture" class="profile-pic">
-                <h3>Hey, I'm [Your Brother's Name]</h3>
+                <div class="profile-emoji">👨‍💻</div>
+                <h3>Hey, I'm Nouman Shahir</h3>
                 <p>I'm a 15-year-old aspiring game developer with a passion for mathematics, physics, and all things gaming. This is where I document my journey, share what I'm learning, and showcase my projects.</p>
                 <div class="social-links">
                     <a href="#" aria-label="GitHub">
@@ -491,8 +470,8 @@
         <div class="projects-grid">
             <!-- Project 1 -->
             <div class="project-card">
-                <div class="project-image">
-                    <img src="/api/placeholder/400/300" alt="2D Platformer Game">
+                <div class="project-emoji">
+                    🕹️
                 </div>
                 <div class="project-info">
                     <h3 class="project-title">Gravity Shift</h3>
@@ -507,8 +486,8 @@
             
             <!-- Project 2 -->
             <div class="project-card">
-                <div class="project-image">
-                    <img src="/api/placeholder/400/300" alt="Physics Simulation">
+                <div class="project-emoji">
+                    🪐
                 </div>
                 <div class="project-info">
                     <h3 class="project-title">Orbital Physics</h3>
@@ -523,8 +502,8 @@
             
             <!-- Project 3 -->
             <div class="project-card">
-                <div class="project-image">
-                    <img src="/api/placeholder/400/300" alt="Procedural Generation">
+                <div class="project-emoji">
+                    🏔️
                 </div>
                 <div class="project-info">
                     <h3 class="project-title">Terrain Generator</h3>
@@ -540,7 +519,7 @@
     </section>
 
     <footer id="contact">
-        <p>© 2025 [Your Brother's Name] • Designed by [Your Name]</p>
+        <p>© 2025 Nouman Shahir • Designed with ❤️</p>
         <p>Contact me at <a href="mailto:example@email.com">example@email.com</a></p>
     </footer>
 </body>
